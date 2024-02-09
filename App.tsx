@@ -5,9 +5,12 @@
  * @format
  */
 
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -17,82 +20,73 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {MedalliaDXA, MedalliaDxaCustomerConsentType} from './node_modules/dxa-react-native/src/index';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const Stack = createNativeStackNavigator();
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+
+const App = () => {
+  const navigationRef = useNavigationContainerRef();
+  MedalliaDXA.initialize(
+    {
+      accountId: 10010,
+      propertyId: 250441,
+      consents: MedalliaDxaCustomerConsentType.recordingAndTracking,
+      manualTracking: false,
+    },
+    navigationRef
+  ).then(() => {
+    console.log('MedalliaDXA initialized');
+  
+  }
+  );
+  
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator initialRouteName="Screen1">
+        <Stack.Screen
+          name="Screen1"
+          component={Screen1}
+          options={{ title: 'Screen1' }}
+        />
+        <Stack.Screen
+          name="Screen2"
+          component={Screen2}
+          options={{ title: 'Screen2' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+
+
+function Screen1({ navigation }: { navigation: any }) {
+  return (
+    <View>
+      <ScrollView>
+
+
+        <Button
+          title='Go to Screen 1'
+          onPress={() => navigation.push('Screen2')} />
+
+      </ScrollView>
     </View>
   );
 }
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+function Screen2({ navigation }: { navigation: any }) {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
+    <View>
+      <ScrollView>
+
+
+        <Button
+          title='Go to Screen 2'
+          onPress={() => navigation.push('Screen1')} />
+
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
