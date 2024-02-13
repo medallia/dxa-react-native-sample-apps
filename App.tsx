@@ -21,11 +21,14 @@ import {
 } from 'react-native';
 
 import {MedalliaDXA, MedalliaDxaCustomerConsentType} from './node_modules/dxa-react-native/src/index';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const Stack = createNativeStackNavigator();
 
 
 const App = () => {
+  crashlytics().log('User signed in.');
+
   const navigationRef = useNavigationContainerRef();
   MedalliaDXA.initialize(
     {
@@ -70,6 +73,12 @@ function Screen1({ navigation }: { navigation: any }) {
         <Button
           title='Go to Screen 1'
           onPress={() => navigation.push('Screen2')} />
+        <Button
+          title='crash with crashlytics'
+          onPress={() => crashlytics().crash()} />
+        <Button
+          title='crash with sdk'
+          onPress={() => MedalliaDXA.sendHttpError(22)} />
 
       </ScrollView>
     </View>

@@ -21,12 +21,29 @@ flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : Flip
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
+ Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+ use_frameworks! :linkage => linkage.to_sym
+end
+
+static_libraries = ['dxa-react-native']
+
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if static_libraries.include?(pod.name)
+      def pod.static_framework?;
+        true
+      end
+      def pod.build_type;
+        Pod::BuildType.static_library
+      end
+    end
+  end
 end
 
 target 'DxaReactNativeDemoApps' do
   config = use_native_modules!
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
 
   use_react_native!(
     :path => config[:reactNativePath],
@@ -34,7 +51,7 @@ target 'DxaReactNativeDemoApps' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    #:flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
