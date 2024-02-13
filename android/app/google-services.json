@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "957577361877",
+    "project_id": "react-native-dxa-test",
+    "storage_bucket": "react-native-dxa-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957577361877:android:6d2df031ba17d056bda55c",
+        "android_client_info": {
+          "package_name": "com.dxareactnativedemoapps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn0K92i-4IukfKRtK1Xvw5SR1JsdEspwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
