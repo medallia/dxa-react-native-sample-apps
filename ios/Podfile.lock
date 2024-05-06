@@ -1,7 +1,7 @@
 PODS:
   - boost (1.83.0)
   - DoubleConversion (1.1.6)
-  - dxa-react-native (0.1.0):
+  - dxa-react-native (0.2.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1315,7 +1315,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
-  dxa-react-native: 5fe44f80f2ddd991e8169277cb69075f535a5e58
+  dxa-react-native: 10628f8a83dc08fa8affcbfbf8352865d0a15602
   FBLazyVector: 84f6edbe225f38aebd9deaf1540a4160b1f087d7
   FBReactNativeSpec: d0086a479be91c44ce4687a962956a352d2dc697
   Firebase: 10c8cb12fb7ad2ae0c09ffc86cd9c1ab392a0031
