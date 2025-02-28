@@ -21,21 +21,22 @@ import {
 } from 'react-native';
 
 import { MedalliaDXA, MedalliaDxaCustomerConsentType } from 'dxa-react-native/src';
-import crashlytics from '@react-native-firebase/crashlytics';
 
 const Stack = createNativeStackNavigator();
 
 
 const App = () => {
-  crashlytics().log('User signed in.');
 
   const navigationRef = useNavigationContainerRef();
   MedalliaDXA.initialize(
     {
-      accountId: 0,
-      propertyId: 0,
-      consents: MedalliaDxaCustomerConsentType.analyticsAndTracking,
+      accountId: 10010,
+      propertyId: 250441,
+      consents: MedalliaDxaCustomerConsentType.analyticsAndRecording,
       manualTracking: false,
+      mobileDataEnabled: true,
+      enhancedLogsEnabled: false,
+      autoMasking: [],
     },
     navigationRef
   );
@@ -102,8 +103,8 @@ export function SessionDataScreen({ navigation }: { navigation: any }) {
   const [sessionUrl, setSessionUrl] = useState<string>("requesting...");
   const [sessionId, setSessionId] = useState<string>("requesting...");
   useEffect(() => {
-    MedalliaDXA.getSessionUrl().then((url) => setSessionUrl(url));
-    MedalliaDXA.getSessionId().then((id) => setSessionId(id));
+    MedalliaDXA.getSessionUrl().then((url) => setSessionUrl(url ?? 'null'));
+    MedalliaDXA.getSessionId().then((id) => setSessionId(id ?? 'null'));
   }, []);
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

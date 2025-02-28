@@ -79,7 +79,7 @@ android {
     namespace "com.dxareactnativedemoapps"
     defaultConfig {
         applicationId "com.dxareactnativedemoapps"
-        minSdkVersion 23
+        minSdkVersion 25
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
